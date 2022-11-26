@@ -28,9 +28,16 @@ jobs:
           username: ${{ secrets.CT_REGISTRY_USERNAME }}
           password: ${{ secrets.CT_REGISTRY_SECRET }}
 
-      - name: Build and push Docker image
+      - name: Build and push Docker versioned image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
           push: true
           tags: ${{env.IMAGE_NAME}}:${{  github.ref_name }}
+      
+      - name: Build and push Docker latest image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: true
+          tags: ${{env.IMAGE_NAME}}:latest
